@@ -1,4 +1,11 @@
-<h6
-  [ngStyle]="{backgroundColor: getColor()}"
-  [ngClass]="{online: serverStatus === 'online'}"
-> This {{ 'server'}} has the Id {{ serverId }}. now the status is {{ getServerStatus() }}</h6>
+<div class="panel panel-default">
+  <div class="panel-heading">
+    {{server.serverName}}
+  </div>
+  <div class="panel-body">
+    <p>
+      <strong *ngIf="server.serverType === 'Server'" style="color:red">{{server.serverContent}}</strong>
+      <em *ngIf="server.serverType === 'Blueprint'">{{server.serverContent}}</em>
+    </p>
+  </div>
+</div>

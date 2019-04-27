@@ -1,11 +1,17 @@
 
 <label>Enter the server name</label>
-<input class="form-control" type="text" (input) ="createServer($event)">
-<input type="text" class="form-control" [(ngModel)]="serverName">
+<!--<input class="form-control" type="text" (input) ="createServer($event)">-->
+<input type="text" class="form-control" [(ngModel)]="serverName"><br>
 <!--<p>{{serverName}}</p>-->
+
+<label>Enter the server content</label>
+<input type="text" class="form-control" [(ngModel)]="serverContent"><br>
+
+<button class="btn btn-primary" [disabled]="!allowNewServer" (click)="addServer()">Add server</button><br><br>
+<button class="btn btn-primary" [disabled]="!allowNewServer" (click)="addBlueprint()">Add Blueprint</button><br><br>
 <p *ngIf="serverCreated; else noServer">{{serverName}} was created successfully.</p>
 <ng-template #noServer><p>No server was created.</p></ng-template>
-<button class="btn btn-primary" [disabled]="allowNewServer" (click)="onClick()">Add server</button><br><br>
+
 
 
 <!--<p>{{ allowNewServer }}</p>
@@ -13,7 +19,7 @@
 <!--<p>{{serverStatus}}</p>-->
 
 
-<app-server></app-server>
-<app-server></app-server>
+<app-server *ngFor="let server of servers" [Disk]="server"></app-server>
+
 
 

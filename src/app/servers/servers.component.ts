@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Server} from '../shared/serve.model';
 
 @Component({
   selector: 'app-servers',
@@ -12,8 +13,12 @@ import { Component, OnInit } from '@angular/core';
 export class ServersComponent implements OnInit {
   allowNewServer = false;
   serverStatus = "No server was created";
-  serverName = 'testserver';
+  serverName = '';
+  serverContent = '';
   serverCreated = false;
+  servers: Server[] = [ new Server('testserver', 'Blueprint', 'This is created for test purpose')];
+  serverType = '';
+
   constructor() {
     setTimeout(() => {
       this.allowNewServer = true;
@@ -23,14 +28,22 @@ export class ServersComponent implements OnInit {
   ngOnInit() {
   }
 
-  onClick(){
-    this.serverStatus = this.serverName+ " was  created successfully.";
+  addServer() {
     this.serverCreated = true;
+    this.serverType = 'Server';
+    this.servers.push(new Server(this.serverName,this.serverType,this.serverContent));
+    this.serverStatus = this.serverType + " was  created successfully.";
   }
 
-  createServer(event:Event) {
-
-    this.serverName = (<HTMLInputElement>event.target).value;
-    console.log(event);
+  addBlueprint() {
+    this.serverCreated = true;
+    this.serverType = 'Blueprint';
+    this.servers.push(new Server(this.serverName,this.serverType,this.serverContent));
+    this.serverStatus = this.serverType + " was  created successfully.";
   }
+
+  //createServer(event:Event) {
+  //  this.serverName = (<HTMLInputElement>event.target).value;
+  //  console.log(event);
+  //}
 }
