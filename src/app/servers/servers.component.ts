@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Server} from '../shared/serve.model';
 
 @Component({
@@ -12,11 +12,10 @@ import {Server} from '../shared/serve.model';
 })
 export class ServersComponent implements OnInit {
   allowNewServer = false;
-  serverStatus = "No server was created";
+  @Output('screated')serverCreate = new EventEmitter<Server>();
+  @Output('bpcreated')blueprintCreate = new EventEmitter<Server>();
   serverName = '';
   serverContent = '';
-  serverCreated = false;
-  servers: Server[] = [ new Server('testserver', 'Blueprint', 'This is created for test purpose')];
   serverType = '';
 
   constructor() {
@@ -28,20 +27,17 @@ export class ServersComponent implements OnInit {
   ngOnInit() {
   }
 
-  addServer() {
-    this.serverCreated = true;
+  addServer(Input: HTMLInputElement) {
     this.serverType = 'Server';
-    this.servers.push(new Server(this.serverName,this.serverType,this.serverContent));
-    this.serverStatus = this.serverType + " was  created successfully.";
+    this.serverName = Input.value;
+    this.serverCreate.emit(new Server(this.serverName,this.serverType,this.serverContent));
   }
 
-  addBlueprint() {
-    this.serverCreated = true;
+  addBlueprint(Input: HTMLInputElement) {
     this.serverType = 'Blueprint';
-    this.servers.push(new Server(this.serverName,this.serverType,this.serverContent));
-    this.serverStatus = this.serverType + " was  created successfully.";
+    this.serverName = Input.value;
+    this.blueprintCreate.emit(new Server(this.serverName,this.serverType,this.serverContent));
   }
-
   //createServer(event:Event) {
   //  this.serverName = (<HTMLInputElement>event.target).value;
   //  console.log(event);

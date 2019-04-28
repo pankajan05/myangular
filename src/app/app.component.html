@@ -1,4 +1,16 @@
 <h3>Hello world, I am pankajan</h3>
 <hr>
-<app-servers></app-servers>
+<app-servers (screated)="serverCreate($event)" (bpcreated)="blueprintCreate($event)"></app-servers>
+<p *ngIf="serverCreated; else noServer">server was created successfully.</p>
+<ng-template #noServer><p>No server was created.</p></ng-template>
+
+<button class="btn btn-primary" (click)="OnChangeFirst()">Changes First Element</button>
+<button class="btn btn-danger" (click)="OndeleteFirst()" > Delete First Server</button>
+
+<app-server *ngFor="let server of servers" [Disk]="server" [name]="server.serverName">
+  <p>
+    <strong *ngIf="server.serverType === 'Server'" style="color:red">{{server.serverContent}}</strong>
+    <em *ngIf="server.serverType === 'Blueprint'" style="color:blue">{{server.serverContent}}</em>
+  </p>
+</app-server>
 
